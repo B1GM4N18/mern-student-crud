@@ -30,3 +30,143 @@ cd backend
 npm install express mongoose cors dotenv
 npm install --save-dev nodemon
 ```
+Add this script to package.json:
+
+
+```json
+"scripts": {
+  "dev": "nodemon server.js"
+}
+```
+
+Environment
+Create a .env file in backend/:
+
+env
+Copy
+Edit
+PORT=5000
+MONGO_URI=mongodb://127.0.0.1:27017/studentdb
+Note: .env is ignored via .gitignore already.
+
+API Contract
+Base URL:
+http://localhost:5000/api/students
+
+Common Response Shapes
+Success:
+
+json
+Copy
+Edit
+{
+  "success": true,
+  "data": ...
+}
+Error:
+
+json
+Copy
+Edit
+{
+  "success": false,
+  "message": "Description of failure"
+}
+Endpoints
+1. List all students
+Method: GET
+
+Path: /
+
+Success (200):
+
+json
+Copy
+Edit
+{
+  "success": true,
+  "data": [
+    { "_id": "abc123", "name": "Alice", "rollNumber": "101" }
+  ]
+}
+2. Create a student
+Method: POST
+
+Path: /
+
+Body:
+
+json
+Copy
+Edit
+{
+  "name": "Charlie",
+  "rollNumber": "103"
+}
+Success (201):
+
+json
+Copy
+Edit
+{
+  "success": true,
+  "data": { "_id": "ghi789", "name": "Charlie", "rollNumber": "103" }
+}
+3. Update a student
+Method: PUT
+
+Path: /:id
+
+Body: partial or full (e.g., { "name": "New Name" })
+
+Success (200):
+
+json
+Copy
+Edit
+{
+  "success": true,
+  "data": { "_id": "ghi789", "name": "New Name", "rollNumber": "103" }
+}
+4. Delete a student
+Method: DELETE
+
+Path: /:id
+
+Success (200):
+
+json
+Copy
+Edit
+{
+  "success": true,
+  "message": "Student deleted"
+}
+Example Requests
+Create:
+
+bash
+Copy
+Edit
+curl -X POST http://localhost:5000/api/students \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test Student","rollNumber":"999"}'
+List:
+
+bash
+Copy
+Edit
+curl http://localhost:5000/api/students
+Update:
+
+bash
+Copy
+Edit
+curl -X PUT http://localhost:5000/api/students/<id> \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Updated Name"}'
+Delete:
+
+```bash
+curl -X DELETE http://localhost:5000/api/students/<id>
+```
