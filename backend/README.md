@@ -12,10 +12,6 @@ Provides a clean RESTful API to create, read, update, and delete student entries
 3. [Environment](#environment)
 4. [API Contract](#api-contract)
 5. [Example Requests](#example-requests)
-6. [Development Workflow](#development-workflow)
-7. [Acceptance Criteria](#acceptance-criteria)
-8. [Optional Enhancements](#optional-enhancements)
-9. [Handoff Notes](#handoff-notes)
 
 ## Tech Stack
 - Node.js with Express  
@@ -150,33 +146,3 @@ curl -X PUT http://localhost:5000/api/students/<id> \
 ```bash
 curl -X DELETE http://localhost:5000/api/students/<id>
 ```
-
-## Development Workflow
-- Create a feature branch (e.g., `backend-setup` or `feature/student-crud`).
-- Implement in order: model → controller → routes.
-- Test each endpoint individually (Postman / curl).
-- Commit with descriptive messages:
-  - `feat: add Student model`
-  - `feat: implement create endpoint`
-  - `fix: validation error handling`
-- Open pull request to `main` with summary & checklist.
-
-## Acceptance Criteria
-- [x] CRUD endpoints work as specified.
-- [x] MongoDB connection via `.env`.
-- [x] CORS enabled.
-- [x] Required field validation with proper status codes.
-- [x] Consistent success/error response structure.
-- [x] README & API contract present for frontend.
-- [ ] Clean commit history.
-
-## Optional Enhancements
-- Input sanitization.
-- Request/response logging middleware.
-- Swagger/OpenAPI documentation.
-- Unit tests for controllers.
-- Enforce unique `rollNumber`.
-
-## Handoff Notes
-- To add a new field (e.g., `department`): update Mongoose schema, adjust controller logic, and ensure responses include it. No need to refactor unrelated layers.
-- Always document changes here or in the related GitHub issue.
