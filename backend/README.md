@@ -42,6 +42,12 @@ MONGO_URI=mongodb://127.0.0.1:27017/studentdb
 ```
 > **Note:** `.env` is ignored via `.gitignore` already.
 
+## Start
+```bash
+sudo systemctl start mongodb.service
+npm run dev
+```
+
 ## API Contract
 
 **Base URL:**  
