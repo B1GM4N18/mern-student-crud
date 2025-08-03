@@ -10,6 +10,7 @@ function App() {
 
   const [students, setStudents] = useState([]);
   const [editingStudent, setEditingStudent] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   const fetchStudents = async () => {
     try {
@@ -55,18 +56,48 @@ function App() {
   return (
     <div className="App">
       <h1>Student Manager</h1>
-      <StudentForm
-        onSubmit={editingStudent ? (data) => updateStudent(editingStudent._id, data) : createStudent}
-        initialData={editingStudent}
-        onCancel={() => setEditingStudent(null)}
-      />
+  
+      <div className={`morph-container ${showForm || editingStudent ? 'expanded' : ''}`}>
+        {!showForm && !editingStudent && (
+          <button
+            className="morph-button"
+            onClick={() => {
+              setEditingStudent(null);
+              setShowForm(true);
+            }}
+          >
+            Add Student
+          </button>
+        )}
+  
+        {(showForm || editingStudent) && (
+          <StudentForm
+            onSubmit={
+              editingStudent
+                ? (data) => updateStudent(editingStudent._id, data)
+                : createStudent
+            }
+            initialData={editingStudent}
+            onCancel={() => {
+              setEditingStudent(null);
+              setShowForm(false);
+            }}
+          />
+        )}
+      </div>
+  
       <StudentList
         students={students}
-        onEdit={setEditingStudent}
+        onEdit={(student) => {
+          setEditingStudent(student);
+          setShowForm(true);
+        }}
         onDelete={deleteStudent}
+        editingStudent={editingStudent}
       />
     </div>
   );
+  
 }
 
 export default App;
