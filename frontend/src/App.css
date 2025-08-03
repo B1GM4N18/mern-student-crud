@@ -5,6 +5,7 @@
   box-sizing: border-box;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
+
 body,
 html {
   display: flex;
@@ -20,12 +21,11 @@ html {
   justify-content: center;
   align-items: center;
 }
+
 body {
   background: #f4f4f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
+
 .App {
   display: ruby;
   background: white;
@@ -37,6 +37,7 @@ body {
   position: relative;
   overflow: hidden;
 }
+
 .App h1 {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -57,6 +58,7 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .morph-container.expanded {
   width: 100%;
   height: fit-content;
@@ -65,6 +67,7 @@ body {
   box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.08);
   padding: 1rem 1.25rem;
 }
+
 .morph-button {
   background: none;
   border: none;
@@ -81,9 +84,11 @@ body {
   letter-spacing: .5px;
   transition: transform .2s ease;
 }
+
 .morph-button:hover {
   transform: scale(1.03);
 }
+
 .morph-container.expanded .morph-button {
   display: none;
 }
@@ -95,15 +100,18 @@ body {
   gap: 0.75rem;
   animation: fadeIn .35s ease forwards;
 }
+
 .form-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .student-form h3 {
   font-size: 1.25rem;
   margin: 0;
 }
+
 .mini-close {
   background: transparent;
   border: none;
@@ -111,11 +119,13 @@ body {
   cursor: pointer;
   padding: 0 6px;
 }
+
 .fields {
   display: flex;
   flex-direction: column;
   gap: 0.65rem;
 }
+
 input {
   padding: 0.55rem 0.75rem;
   font-size: 1rem;
@@ -124,6 +134,7 @@ input {
   outline: none;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
+
 input:focus {
   border-color: #4caf50;
   box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
@@ -134,6 +145,7 @@ input:focus {
   gap: 0.5rem;
   flex-wrap: wrap;
 }
+
 button.primary {
   flex: 1;
   background-color: #4caf50;
@@ -145,9 +157,11 @@ button.primary {
   font-weight: 600;
   transition: background .2s ease;
 }
+
 button.primary:hover {
   background-color: #43a047;
 }
+
 button.secondary {
   background: #f5f5f5;
   color: #333;
@@ -156,6 +170,7 @@ button.secondary {
   padding: 0.55rem 1rem;
   cursor: pointer;
 }
+
 button.secondary:hover {
   background: #eaeaea;
 }
@@ -166,6 +181,7 @@ ul {
   padding: 0;
   margin-top: 1rem;
 }
+
 li {
   background: #fff;
   padding: 0.75rem 1rem;
@@ -177,6 +193,7 @@ li {
   box-shadow: 0 6px 18px -6px rgba(0,0,0,0.08);
   transition: transform .2s ease, background .2s ease;
 }
+
 li.editing {
   border: 2px solid #4caf50;
   background: #f0fff4;
@@ -184,6 +201,7 @@ li.editing {
   padding: 0.75rem 1rem;
   transition: background .2s ease, border .2s ease;
 }
+
 li.editing .student-info {
   font-weight: 600;
 }
@@ -195,29 +213,21 @@ li button {
   cursor: pointer;
   font-size: 0.9rem;
 }
+
 li button.edit {
   color: #1976d2;
 }
+
 li button.delete {
   color: #d32f2f;
 }
 
-/* Empty / loading states */
-.empty {
-  text-align: center;
-  padding: 1rem 0;
-  color: #555;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* Table */
 .table-wrapper {
-  overflow-x: auto;
   margin-top: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .student-table {
@@ -226,16 +236,18 @@ li button.delete {
   font-size: 0.95rem;
 }
 
+.student-table thead {
+  background: #f9f9f9;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
 .student-table th,
 .student-table td {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid #e5e5e5;
-}
-
-.student-table th {
-  background: #f9f9f9;
-  font-weight: 600;
 }
 
 .student-table tr {
@@ -257,6 +269,20 @@ li button.delete {
   font-weight: 600;
 }
 
+/* Scrollable body: limit height to approx 5 rows */
+.student-table tbody {
+  display: block;
+  max-height: calc(5 * 49px); /* adjust if row height differs */
+  overflow-y: auto;
+}
+
+.student-table thead,
+.student-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* keep alignment */
+}
+
 button.delete {
   background: transparent;
   border: none;
@@ -272,54 +298,15 @@ button.delete:hover {
   background: rgba(211, 47, 47, 0.1);
 }
 
+/* Empty / loading states */
 .empty {
+  text-align: center;
+  padding: 1rem 0;
   color: #555;
-  padding: 0.75rem 0;
 }
 
-.student-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
-}
-
-/* Make header sticky and table body scrollable after ~5 rows */
-.table-wrapper {
-  margin-top: 1rem;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.student-table thead {
-  background: #f9f9f9;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-
-.student-table th{
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.student-table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-/* Scrollable body: limit height to approx 5 rows */
-.student-table tbody {
-  display: block;
-  max-height: calc(5 * 49px); /* adjust 52px if your row height differs */
-  overflow-y: auto;
-}
-
-.student-table thead,
-.student-table tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed; /* keep alignment */
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
