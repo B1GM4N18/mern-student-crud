@@ -1,21 +1,50 @@
 import React from 'react';
 
-function StudentList({ students, onEdit, onDelete }) {
+function StudentList({ students, onEdit, onDelete, editingStudent }) {
   return (
-    <div>
+    <div className="student-list-container">
       <h3>All Students</h3>
       {students.length === 0 ? (
-        <p>No students found.</p>
+        <p className="empty">No students found.</p>
       ) : (
-        <ul>
-          {students.map((student) => (
-            <li key={student._id}>
-              {student.name} (Roll No: {student.rollNumber})
-              <button onClick={() => onEdit(student)}>Edit</button>
-              <button onClick={() => onDelete(student._id)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        <div className="table-wrapper">
+          <table className="student-table">
+            <thead>
+              <tr>
+                <th>Roll Number</th>
+                <th>Name</th>
+                <th aria-label="actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {students.map((student) => {
+                const isEditing = editingStudent?._id === student._id;
+                return (
+                  <tr
+                    key={student._id}
+                    className={isEditing ? 'editing' : ''}
+                    onClick={() => onEdit(student)}
+                  >
+                    <td>{student.rollNumber}</td>
+                    <td>{student.name}</td>
+                    <td>
+                      <button
+                        className="delete"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onDelete(student._id);
+                        }}
+                        aria-label={`Delete ${student.name}`}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
