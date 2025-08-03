@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 function StudentForm({ onSubmit, initialData, onCancel }) {
-
   const [name, setName] = useState('');
   const [rollNumber, setRollNumber] = useState('');
 
@@ -17,8 +16,8 @@ function StudentForm({ onSubmit, initialData, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !rollNumber) return;
-    onSubmit({ name, rollNumber });
+    if (!name.trim() || !rollNumber.trim()) return;
+    onSubmit({ name: name.trim(), rollNumber: rollNumber.trim() });
     if (!initialData) {
       setName('');
       setRollNumber('');
@@ -26,20 +25,37 @@ function StudentForm({ onSubmit, initialData, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>{initialData ? 'Edit Student' : 'Add Student'}</h3>
-      <input
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        placeholder="Roll No."
-        value={rollNumber}
-        onChange={(e) => setRollNumber(e.target.value)}
-      />
-      <button type="submit">{initialData ? 'Update' : 'Add'}</button>
-      {initialData && <button onClick={onCancel} type="button">Cancel</button>}
+    <form className="student-form" onSubmit={handleSubmit} aria-label="student form">
+      <div className="form-header">
+        <h3>{initialData ? 'Edit Student' : 'Add Student'}</h3>
+        <button
+          type="button"
+          className="mini-close"
+          aria-label="close form"
+          onClick={onCancel}
+        >
+          ✕
+        </button>
+      </div>
+      <div className="fields">
+        <input
+          aria-label="student name"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          aria-label="roll number"
+          placeholder="Roll No."
+          value={rollNumber}
+          onChange={(e) => setRollNumber(e.target.value)}
+        />
+      </div>
+      <div className="actions">
+        <button type="submit" className="primary">
+          {initialData ? 'Update' : 'Add'}
+        </button>
+      </div>
     </form>
   );
 }
