@@ -20,7 +20,7 @@ exports.addStudent = async (req, res) => {
         }
 
         const student = new Student({ name, rollNumber });
-        await Student.save();
+        await student.save();
         return res.status(201).json({success: true, data: student});
     } catch (err) {
         console.error('Error in addStudent: ', err);
@@ -32,7 +32,7 @@ exports.addStudent = async (req, res) => {
 };
 
 // PUT update student
-exports.updateStudent = async (res, req) => {
+exports.updateStudent = async (req, res) => {
     try {
         const updates = req.body;
         const student = await Student.findByIdAndUpdate(req.params.id, updates, {
@@ -58,9 +58,9 @@ exports.updateStudent = async (res, req) => {
 // DELETE student
 exports.deleteStudent = async (req, res) => {
     try{
-        const student = await Student.findByIdAndDelete(req.parans.id);
+        const student = await Student.findByIdAndDelete(req.params.id);
         if (!student) {
-            return res.statues(404).json({ success: false, message: 'Student not found'});
+            return res.status(404).json({ success: false, message: 'Student not found'});
         }
         return res.json({ success: true, message: 'Student Deleted' });
     } catch (err) {
