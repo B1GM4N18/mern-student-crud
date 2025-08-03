@@ -1,3 +1,27 @@
+/* Color Variables */
+:root {
+  --primary: #667eea;
+  --primary-hover: #5a67d8;
+  --primary-light: rgba(102, 126, 234, 0.1);
+  --secondary: #4fd1c7;
+  --background: #f7fafc;
+  --surface: #ffffff;
+  --surface-hover: #f8fafc;
+  --surface-secondary: #edf2f7;
+  --border: #e2e8f0;
+  --border-focus: var(--primary);
+  --text-primary: #2d3748;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --success: #48bb78;
+  --success-light: #f0fff4;
+  --warning: #ed8936;
+  --danger: #f56565;
+  --danger-light: rgba(245, 101, 101, 0.1);
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-light: rgba(0, 0, 0, 0.05);
+}
+
 /* Reset + base */
 * {
   margin: 0;
@@ -23,55 +47,55 @@ html {
 }
 
 body {
-  background: #f4f4f4;
+  background: var(--background);
 }
 
 .App {
-  display: ruby;
-  background: white;
+  background: var(--surface);
   padding: 2rem;
   border-radius: 14px;
   width: 100%;
   max-width: 640px;
-  box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 20px 60px -10px var(--shadow);
   position: relative;
   overflow: hidden;
 }
 
 .App h1 {
-  text-align: center;
+  text-align: left;
   margin-bottom: 1.5rem;
   font-size: 1.75rem;
+  color: var(--text-primary);
 }
 
-/* Morph container */
 .morph-container {
   position: relative;
-  width: 160px;
-  height: 50px;
-  margin: 0 auto 1.5rem;
+  width: 145px;
+  height: 44px;
+  margin: 0 0 1.5rem;           /* removed auto so it’s not centered */
   transition: all .45s cubic-bezier(.25,.8,.25,1);
-  border-radius: 30px;
+  border-radius: 8px;
   overflow: hidden;
-  background: #4caf50;
+  background: var(--primary);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: center;          /* vertical centering of children */
+  justify-content: flex-start;  /* left-align children */
+  padding: 0 0.25rem;           /* optional: give some inner spacing */
 }
 
 .morph-container.expanded {
   width: 100%;
   height: fit-content;
   border-radius: 12px;
-  background: #fff;
-  box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.08);
+  background: var(--surface);
+  box-shadow: 0 20px 60px -10px var(--shadow-light);
   padding: 1rem 1.25rem;
 }
 
 .morph-button {
   background: none;
   border: none;
-  color: white;
+  color: var(--surface);
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
@@ -83,6 +107,7 @@ body {
   justify-content: center;
   letter-spacing: .5px;
   transition: transform .2s ease;
+  border-radius: 8px;
 }
 
 .morph-button:hover {
@@ -95,6 +120,7 @@ body {
 
 /* Form */
 .student-form {
+  width: inherit;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -110,6 +136,7 @@ body {
 .student-form h3 {
   font-size: 1.25rem;
   margin: 0;
+  color: var(--text-primary);
 }
 
 .mini-close {
@@ -118,6 +145,7 @@ body {
   font-size: 1.1rem;
   cursor: pointer;
   padding: 0 6px;
+  color: var(--text-muted);
 }
 
 .fields {
@@ -129,15 +157,17 @@ body {
 input {
   padding: 0.55rem 0.75rem;
   font-size: 1rem;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--border);
   border-radius: 8px;
   outline: none;
   transition: border-color .2s ease, box-shadow .2s ease;
+  color: var(--text-primary);
+  background: var(--surface);
 }
 
 input:focus {
-  border-color: #4caf50;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--primary-light);
 }
 
 .actions {
@@ -148,8 +178,8 @@ input:focus {
 
 button.primary {
   flex: 1;
-  background-color: #4caf50;
-  color: white;
+  background-color: var(--primary);
+  color: var(--surface);
   border: none;
   border-radius: 8px;
   padding: 0.55rem 1rem;
@@ -159,20 +189,20 @@ button.primary {
 }
 
 button.primary:hover {
-  background-color: #43a047;
+  background-color: var(--primary-hover);
 }
 
 button.secondary {
-  background: #f5f5f5;
-  color: #333;
-  border: 1px solid #d3d3d3;
+  background: var(--surface-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.55rem 1rem;
   cursor: pointer;
 }
 
 button.secondary:hover {
-  background: #eaeaea;
+  background: var(--surface-hover);
 }
 
 /* Student list */
@@ -183,20 +213,21 @@ ul {
 }
 
 li {
-  background: #fff;
+  background: var(--surface);
   padding: 0.75rem 1rem;
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75rem;
-  box-shadow: 0 6px 18px -6px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 18px -6px var(--shadow-light);
   transition: transform .2s ease, background .2s ease;
+  color: var(--text-primary);
 }
 
 li.editing {
-  border: 2px solid #4caf50;
-  background: #f0fff4;
+  border: 2px solid var(--primary);
+  background: var(--primary-light);
   position: relative;
   padding: 0.75rem 1rem;
   transition: background .2s ease, border .2s ease;
@@ -215,17 +246,17 @@ li button {
 }
 
 li button.edit {
-  color: #1976d2;
+  color: var(--secondary);
 }
 
 li button.delete {
-  color: #d32f2f;
+  color: var(--danger);
 }
 
 /* Table */
 .table-wrapper {
   margin-top: 1rem;
-  border: 1px solid #e5e5e5;
+  border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -234,10 +265,11 @@ li button.delete {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
+  color: var(--text-primary);
 }
 
 .student-table thead {
-  background: #f9f9f9;
+  background: var(--surface-secondary);
   position: sticky;
   top: 0;
   z-index: 1;
@@ -247,7 +279,7 @@ li button.delete {
 .student-table td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--border);
 }
 
 .student-table tr {
@@ -256,12 +288,12 @@ li button.delete {
 }
 
 .student-table tr:hover:not(.editing) {
-  background: #fbfbfb;
+  background: var(--surface-hover);
 }
 
 .student-table tr.editing {
-  border: 2px solid #4caf50;
-  background: #f0fff4;
+  border: 2px solid var(--primary);
+  background: var(--primary-light);
   position: relative;
 }
 
@@ -286,7 +318,7 @@ li button.delete {
 button.delete {
   background: transparent;
   border: none;
-  color: #d32f2f;
+  color: var(--danger);
   cursor: pointer;
   font-weight: 600;
   padding: 4px 8px;
@@ -295,14 +327,14 @@ button.delete {
 }
 
 button.delete:hover {
-  background: rgba(211, 47, 47, 0.1);
+  background: var(--danger-light);
 }
 
 /* Empty / loading states */
 .empty {
   text-align: center;
   padding: 1rem 0;
-  color: #555;
+  color: var(--text-muted);
 }
 
 /* Animations */
