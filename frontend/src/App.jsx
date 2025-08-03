@@ -3,6 +3,7 @@ import axios from 'axios';
 import StudentForm from './components/StudentForm';
 import StudentList from './components/StudentList';
 import './App.css'
+import { Toaster, toast } from 'react-hot-toast';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL + '/students';
 
@@ -18,15 +19,19 @@ function App() {
       setStudents(res.data.data);
     } catch (err) {
       console.error('Error fetching students:', err);
+      toast.error('Failed to load students');
     }
   };
 
   const createStudent = async (student) => {
     try {
-      const res = await axios.post(`${API_URL}/`, student);
+      const res = await axios.post(`${API_URL}`, student);
       setStudents([...students, res.data.data]);
+      toast.success('Student added successfully');
     } catch (err) {
       console.error('Error creating student:', err);
+      const msg = err.response?.data?.message || 'Failed to add student';
+      toast.error(msg);
     }
   };
 
@@ -35,8 +40,11 @@ function App() {
       const res = await axios.put(`${API_URL}/${id}`, updates);
       setStudents(students.map(s => (s._id === id ? res.data.data : s)));
       setEditingStudent(null);
+      toast.success('Student updated');
     } catch (err) {
       console.error('Error updating student:', err);
+      const msg = err.response?.data?.message || 'Failed to update student';
+      toast.error(msg);
     }
   };
 
@@ -44,8 +52,11 @@ function App() {
     try {
       await axios.delete(`${API_URL}/${id}`);
       setStudents(students.filter(s => s._id !== id));
+      toast.success('Student deleted');
     } catch (err) {
       console.error('Error deleting student:', err);
+      const msg = err.response?.data?.message || 'Failed to delete student';
+      toast.error(msg);
     }
   };
 
@@ -55,6 +66,12 @@ function App() {
 
   return (
     <div className="App">
+      <Toaster 
+        position="top-left"
+        toastOptions={{
+          duration: 3000,
+          style: { borderRadius: '8px' }
+        }} />
       <h1>Student Manager</h1>
   
       <div className={`morph-container ${showForm || editingStudent ? 'expanded' : ''}`}>
