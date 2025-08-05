@@ -2,15 +2,18 @@
     "name": "mern-student-crud",
     "private": true,
     "workspaces": [
-      "backend",
-      "frontend"
+        "backend",
+        "frontend"
     ],
     "scripts": {
-      "install": "npm run install:all",
-      "install:all": "npm install --workspaces",
-      "start": "npm run start:all",
-      "start:all": "npm run start:backend & npm run start:frontend",
-      "start:backend": "npm --workspace backend run dev",
-      "start:frontend": "npm --workspace frontend run dev"
+        "install": "npm run install:all",
+        "install:all": "npm install --workspaces",
+        "start": "npm run start:all",
+        "start:all": "npm run start:backend & npm run start:frontend",
+        "start:backend": "npm --workspace backend run dev",
+        "start:frontend": "npm --workspace frontend run dev"
+    },
+    "devDependencies": {
+        "dotenv-cli": "^10.0.0"
     }
-  }
+}
