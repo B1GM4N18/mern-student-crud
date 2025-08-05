@@ -13,5 +13,8 @@
     },
     "devDependencies": {
         "dotenv-cli": "^10.0.0"
+    },
+    "dependencies": {
+        "express": "^4.21.1"
     }
 }
