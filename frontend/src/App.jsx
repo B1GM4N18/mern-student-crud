@@ -5,7 +5,7 @@ import StudentList from './components/StudentList';
 import './App.css'
 import { Toaster, toast } from 'react-hot-toast';
 
-const API_URL = import.meta.env.VITE_API_BASE_URL + '/students';
+const API_URL = 'http://localhost:5000/api/students';
 
 function App() {
 
